@@ -1,0 +1,41 @@
+plugins {
+	id 'org.springframework.boot' version '2.4.1'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+	id 'java'
+}
+
+group = 'com.wonder.integration.junitdemo'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '15'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	maven {
+		url 'https://neowu.github.io/maven-repo/'
+		content {
+			includeGroup 'core.framework'
+		}
+	}
+	maven { url = 'http://maven.aliyun.com/nexus/content/groups/public/' }
+	mavenCentral()
+	mavenLocal()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-integration'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+			//加入下面的引入,可以使用junit5的版本来测试; 如果想用junit4的测试, 把exclusioins去除
+	testImplementation 'org.springframework.integration:spring-integration-test'
+}
+
+test {
+	useJUnitPlatform()
+}
